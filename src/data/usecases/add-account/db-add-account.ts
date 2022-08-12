@@ -22,9 +22,8 @@ export class DbAddAccount implements AddAccount {
     const encryptedPassword = await this.encrypter.encrypt(
       accountData.password
     );
-    await this.addAccountRepository.add(
+    return await this.addAccountRepository.add(
       Object.assign({}, accountData, { password: encryptedPassword })
     );
-    return await Promise.resolve(null);
   }
 }
