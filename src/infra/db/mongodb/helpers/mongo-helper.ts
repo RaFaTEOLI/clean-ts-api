@@ -16,9 +16,8 @@ export const MongoHelper = {
   },
 
   map(result: InsertOneResult<Document>, collection: any): any {
-    const newCollection = collection;
-    delete newCollection._id;
-    return Object.assign({}, newCollection, {
+    const { _id, ...collectionWithoutId } = collection;
+    return Object.assign({}, collectionWithoutId, {
       id: result.insertedId.toString(),
     });
   },
