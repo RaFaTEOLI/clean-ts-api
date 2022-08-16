@@ -16,6 +16,10 @@ export const MongoHelper = {
   },
 
   map(result: InsertOneResult<Document>, collection: any): any {
-    return Object.assign({}, collection, { id: result.insertedId.toString() });
+    const newCollection = collection;
+    delete newCollection._id;
+    return Object.assign({}, newCollection, {
+      id: result.insertedId.toString(),
+    });
   },
 };
