@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": {
+    "name": "Rafael Tessarolo"
+  },
   "scripts": {
     "prepare": "husky install",
     "start": "sucrase-node src/main/server.ts",
