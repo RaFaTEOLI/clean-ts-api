@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/brace-style */
 /* eslint-disable @typescript-eslint/indent */
 import { AuthenticationModel } from '../../../domain/usecases/authentication';
-import { LoadAccountByEmailRepository } from '../../protocols/load-account-by-email-repository';
+import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository';
 import { AccountModel } from '../add-account/db-add-account-protocols';
 import { DbAuthentication } from './db-authentication';
 
