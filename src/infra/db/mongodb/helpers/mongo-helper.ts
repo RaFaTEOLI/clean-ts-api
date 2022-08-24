@@ -1,4 +1,10 @@
-import { Collection, InsertOneResult, MongoClient, Document } from 'mongodb';
+import {
+  Collection,
+  InsertOneResult,
+  MongoClient,
+  Document,
+  WithId,
+} from 'mongodb';
 
 export const MongoHelper = {
   client: null as MongoClient,
@@ -25,6 +31,13 @@ export const MongoHelper = {
     const { _id, ...collectionWithoutId } = collection;
     return Object.assign({}, collectionWithoutId, {
       id: result.insertedId.toString(),
+    });
+  },
+
+  format(result: WithId<Document>): any {
+    const { _id, ...document } = result;
+    return Object.assign({}, document, {
+      id: _id,
     });
   },
 };
