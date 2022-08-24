@@ -37,7 +37,7 @@ export const MongoHelper = {
   format(result: WithId<Document>): any {
     const { _id, ...document } = result;
     return Object.assign({}, document, {
-      id: _id,
+      id: _id.toString(),
     });
   },
 };
