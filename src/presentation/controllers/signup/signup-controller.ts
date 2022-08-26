@@ -1,5 +1,5 @@
 import { HttpResponse, HttpRequest, Controller } from '../../protocols';
-import { AddAccount, Validation } from './signup-protocols';
+import { AddAccount, Validation } from './signup-controller-protocols';
 import {
   badRequest,
   serverError,
