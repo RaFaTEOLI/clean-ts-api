@@ -24,6 +24,19 @@ services:
     networks:
       - mongo-compose-network
 
+  api:
+    container_name: api-container
+    build: .
+    image: clean-ts-api
+    restart: always
+    command: npm start
+    volumes:
+      - /home/rafael/Development/courses/clean-ts-api/dist
+    ports:
+      - '5050:5050'
+    networks:
+      - mongo-compose-network
+
 networks:
   mongo-compose-network:
     driver: bridge
