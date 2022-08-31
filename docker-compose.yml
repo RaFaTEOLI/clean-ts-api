@@ -28,10 +28,10 @@ services:
 
   api:
     container_name: api-container
-    build: .
-    image: clean-ts-api
+    image: node:16
+    working_dir: /home/rafael/Development/courses/clean-ts-api/Docker/clean-ts-api
     restart: always
-    command: npm start
+    command: bash -c "npm install && npm start"
     environment:
       - MONGO_URL=mongodb://root:1234@mongo:27017/
     volumes:
