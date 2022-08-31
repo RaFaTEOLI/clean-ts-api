@@ -35,9 +35,11 @@ services:
     environment:
       - MONGO_URL=mongodb://root:1234@mongo:27017/
     volumes:
-      - ./dist:/home/rafael/Development/courses/clean-ts-api/dist
+      - ./dist:/home/rafael/Development/courses/clean-ts-api/Docker/clean-ts-api/dist
+      - ./package.json:/home/rafael/Development/courses/clean-ts-api/Docker/clean-ts-api/package.json
     ports:
       - '5050:5050'
+      - '9222:9222'
     links:
       - mongo
     networks:
