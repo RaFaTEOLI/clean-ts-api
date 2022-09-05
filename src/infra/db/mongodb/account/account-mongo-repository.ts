@@ -19,10 +19,10 @@ export class AccountMongoRepository
     return MongoHelper.map(result, accountData);
   }
 
-  async loadByEmail(email: string): Promise<AccountModel> {
+  async loadByEmail(email: string): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts');
     const account = await accountCollection.findOne({ email });
-    return account && MongoHelper.format(account);
+    return account ? MongoHelper.format(account) : null;
   }
 
   async updateAccessToken(id: string, token: string): Promise<void> {
