@@ -9,6 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "start": "node dist/main/server.js",
+    "dev": "tsc -w",
     "build": "rimraf dist && tsc",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "up": "yarn build && docker-compose up -d",
