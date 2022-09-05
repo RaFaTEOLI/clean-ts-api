@@ -28,8 +28,8 @@ export class SignUpController implements Controller {
 
       const account = await this.addAccount.add({ name, email, password });
 
-      await this.authentication.auth({ email, password });
-      return success(account);
+      const accessToken = await this.authentication.auth({ email, password });
+      return success({ accessToken, user: account });
     } catch (error) {
       return serverError(error);
     }
