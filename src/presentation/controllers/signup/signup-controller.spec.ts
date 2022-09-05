@@ -1,4 +1,4 @@
-import { MissingParamError, ServerError } from '../../errors';
+import { EmailInUseError, MissingParamError, ServerError } from '../../errors';
 import {
   AccountModel,
   AddAccountModel,
@@ -13,6 +13,7 @@ import {
   success,
   serverError,
   badRequest,
+  forbidden,
 } from '../../helpers/http/http-helper';
 
 const makeFakeAccount = (): AccountModel => ({
@@ -104,6 +105,14 @@ describe('SignUp Controller', () => {
       email: 'any_email@mail.com',
       password: 'any_password',
     });
+  });
+
+  test('should return 403 if add account returns null', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, 'add').mockResolvedValueOnce(null);
+    const httpRequest = makeFakeRequest();
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
   });
 
   test('should return 200 if valid body is provided', async () => {
