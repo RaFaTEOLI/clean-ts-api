@@ -1,4 +1,8 @@
-import { EmailInUseError, MissingParamError, ServerError } from '../../errors';
+import {
+  EmailInUseError,
+  MissingParamError,
+  ServerError,
+} from '../../../errors';
 import {
   AccountModel,
   AddAccountModel,
@@ -14,7 +18,7 @@ import {
   serverError,
   badRequest,
   forbidden,
-} from '../../helpers/http/http-helper';
+} from '../../../helpers/http/http-helper';
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
