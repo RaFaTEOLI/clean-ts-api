@@ -12,6 +12,8 @@ services:
       - mongo
     networks:
       - mongo-compose-network
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo
@@ -29,7 +31,7 @@ services:
   api:
     container_name: api-container
     image: node:16
-    working_dir: /home/rafael/Development/courses/clean-ts-api/Docker/clean-ts-api
+    working_dir: /home/rafael/courses/clean-ts-api/Docker/clean-ts-api
     restart: always
     command: bash -c "npm install && npm run debug"
     environment:
