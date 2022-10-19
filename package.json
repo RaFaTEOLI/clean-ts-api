@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "author": {
-    "name": "Rafael Tessarolo"
+    "name": "Rafael Tessarollo"
   },
   "scripts": {
     "prepare": "husky install",
