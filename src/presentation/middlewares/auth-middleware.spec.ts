@@ -23,18 +23,31 @@ const makeLoadAddAccountByToken = (): LoadAccountByToken => {
   return new LoadAccountByTokenStub();
 };
 
+interface SutTypes {
+  sut: AuthMiddleware;
+  loadAccountByTokenStub: LoadAccountByToken;
+}
+
+const makeSut = (): SutTypes => {
+  const loadAccountByTokenStub = makeLoadAddAccountByToken();
+  const sut = new AuthMiddleware(loadAccountByTokenStub);
+  return {
+    sut,
+    loadAccountByTokenStub,
+  };
+};
+
 describe('AuthMiddleware', () => {
   test('should return 403 if no x-access-token exists in headers', async () => {
-    const sut = new AuthMiddleware(makeLoadAddAccountByToken());
+    const { sut } = makeSut();
     const httpResponse = await sut.handle({});
 
     expect(httpResponse).toEqual(forbidden(new AccessDeniedError()));
   });
 
   test('should call LoadAccountByToken with correct accessToken', async () => {
-    const loadAccountByTokenStub = makeLoadAddAccountByToken();
+    const { sut, loadAccountByTokenStub } = makeSut();
     const loadSpy = jest.spyOn(loadAccountByTokenStub, 'load');
-    const sut = new AuthMiddleware(loadAccountByTokenStub);
     await sut.handle({
       headers: {
         'x-access-token': 'any_token',
