@@ -1,4 +1,4 @@
-import { forbidden, success } from '../helpers/http/http-helper';
+import { forbidden, serverError, success } from '../helpers/http/http-helper';
 import { AccessDeniedError } from '../errors';
 import { AuthMiddleware } from './auth-middleware';
 import { LoadAccountByToken } from '../../domain/usecases/load-account-by-token';
@@ -60,7 +60,7 @@ describe('AuthMiddleware', () => {
 
   test('should return 403 if LoadAccountByToken returns null', async () => {
     const { sut, loadAccountByTokenStub } = makeSut();
-    jest.spyOn(loadAccountByTokenStub, 'load').mockResolvedValue(null);
+    jest.spyOn(loadAccountByTokenStub, 'load').mockResolvedValueOnce(null);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(forbidden(new AccessDeniedError()));
   });
@@ -69,5 +69,14 @@ describe('AuthMiddleware', () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(success(makeFakeAccount()));
+  });
+
+  test('should return 500 if LoadAccountByToken throws an exception', async () => {
+    const { sut, loadAccountByTokenStub } = makeSut();
+    jest
+      .spyOn(loadAccountByTokenStub, 'load')
+      .mockRejectedValueOnce(new Error());
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 });
