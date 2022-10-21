@@ -49,7 +49,14 @@ export class AccountMongoRepository
     const accountCollection = await MongoHelper.getCollection('accounts');
     const account = await accountCollection.findOne({
       accessToken,
-      role,
+      $or: [
+        {
+          role,
+        },
+        {
+          role: 'admin',
+        },
+      ],
     });
     return account ? MongoHelper.format(account) : null;
   }
