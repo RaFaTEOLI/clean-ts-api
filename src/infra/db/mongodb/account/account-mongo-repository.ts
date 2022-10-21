@@ -43,12 +43,12 @@ export class AccountMongoRepository
   }
 
   async loadByToken(
-    token: string,
+    accessToken: string,
     role?: string
   ): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts');
     const account = await accountCollection.findOne({
-      accessToken: token,
+      accessToken,
       role,
     });
     return account ? MongoHelper.format(account) : null;
