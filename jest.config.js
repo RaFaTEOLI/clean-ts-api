@@ -10,8 +10,11 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/main/**',
-    '!<rootDir>/src/presentation/controllers/signup/signup-controller-protocols.ts',
-    '!<rootDir>/src/presentation/controllers/login/login-controller-protocols.ts',
+    // Protocols
+    '!<rootDir>/src/presentation/controllers/authentication/signup/signup-controller-protocols.ts',
+    '!<rootDir>/src/presentation/controllers/authentication/login/login-controller-protocols.ts',
+    '!<rootDir>/src/presentation/controllers/survey/add-survey/add-survey-protocols.ts',
+    '!<rootDir>/src/presentation/middlewares/auth-middleware-protocols.ts',
     '!<rootDir>/src/presentation/protocols/index.ts',
     '!<rootDir>/src/data/usecases/add-account/db-add-account-protocols.ts',
     '!<rootDir>/src/data/usecases/authentication/db-authentication-protocols.ts',
