@@ -6,7 +6,7 @@ interface SutTypes {
   decrypterStub: Decrypter;
 }
 
-const makeDecrypterStub = (): Decrypter => {
+const makeDecrypter = (): Decrypter => {
   class DecrypterStub implements Decrypter {
     async decrypt(value: string): Promise<string> {
       return await Promise.resolve('any_value');
@@ -16,7 +16,7 @@ const makeDecrypterStub = (): Decrypter => {
 };
 
 const makeSut = (): SutTypes => {
-  const decrypterStub = makeDecrypterStub();
+  const decrypterStub = makeDecrypter();
   const sut = new DbLoadAccountByToken(decrypterStub);
   return {
     sut,
