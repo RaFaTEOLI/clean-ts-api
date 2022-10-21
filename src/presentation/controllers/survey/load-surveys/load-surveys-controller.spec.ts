@@ -30,12 +30,12 @@ const makeFakeSurveys = (): SurveyModel[] => {
 };
 
 const makeLoadSurveysStub = (): LoadSurveys => {
-  class LoadSurveysStub implements LoadSurveys {
+  class LoadSurveys implements LoadSurveys {
     async load(): Promise<SurveyModel[]> {
       return await Promise.resolve(makeFakeSurveys());
     }
   }
-  return new LoadSurveysStub();
+  return new LoadSurveys();
 };
 
 interface SutTypes {
