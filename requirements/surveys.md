@@ -4,7 +4,7 @@
 
 1. ⛔ It receives a **GET** request at **/api/surveys**
 2. ⛔ It validates if the request was made by an user
-3. ⛔ It returns **204** if there are no surveys
+3. ✅ It returns **204** if there are no surveys
 4. ✅ It returns **200** with the surveys
 
 > ## Exceptions:
