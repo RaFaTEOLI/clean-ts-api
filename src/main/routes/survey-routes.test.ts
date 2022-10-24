@@ -136,5 +136,31 @@ describe('Survey Routes', () => {
         .set('x-access-token', accessToken)
         .expect(200);
     });
+
+    test('should return 204 on empty load surveys with valid accessToken', async () => {
+      const result = await accountCollection.insertOne({
+        name: 'Rafael',
+        email: 'rafinha.tessarolo@hotmail.com',
+        password: '1234',
+        role: 'admin',
+      });
+
+      const id = result.insertedId.toString();
+      const accessToken = sign({ id }, env.jwtSecret);
+
+      await accountCollection.updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            accessToken,
+          },
+        }
+      );
+
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(204);
+    });
   });
 });
