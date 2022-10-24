@@ -88,7 +88,7 @@ describe('Survey Routes', () => {
       await request(app).get('/api/surveys').expect(403);
     });
 
-    test('should return 200 on load surveys with accessToken', async () => {
+    test('should return 200 on load surveys with valid accessToken', async () => {
       const result = await accountCollection.insertOne({
         name: 'Rafael',
         email: 'rafinha.tessarolo@hotmail.com',
