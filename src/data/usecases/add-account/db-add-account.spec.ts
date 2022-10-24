@@ -51,12 +51,12 @@ const makeAddAccountRepository = (): AddAccountRepository => {
   return new AddAccountRepositoryStub();
 };
 
-interface SutTypes {
+type SutTypes = {
   hasherStub: Hasher;
   sut: DbAddAccount;
   addAccountRepositoryStub: AddAccountRepository;
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository;
-}
+};
 
 const makeSut = (): SutTypes => {
   const hasherStub = makeHasher();
