@@ -8,7 +8,7 @@
       "type": "node",
       "request": "attach",
       "name": "Docker: Attach to Node",
-      "remoteRoot": "/home/rafael/Development/courses/clean-ts-api/Docker/clean-ts-api",
+      "remoteRoot": "/home/rafael/courses/clean-ts-api/Docker/clean-ts-api",
       "port": 9222,
       "restart": true
     }
