@@ -2,7 +2,7 @@ import {
   EmailInUseError,
   MissingParamError,
   ServerError,
-} from '../../../errors';
+} from '@/presentation/errors';
 import {
   AccountModel,
   AddAccountModel,
@@ -18,7 +18,7 @@ import {
   serverError,
   badRequest,
   forbidden,
-} from '../../../helpers/http/http-helper';
+} from '@/presentation/helpers/http/http-helper';
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
