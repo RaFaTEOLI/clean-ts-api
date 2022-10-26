@@ -1,15 +1,6 @@
-import {
-  HttpRequest,
-  Validation,
-  AddSurvey,
-  AddSurveyModel,
-} from './add-survey-protocols';
+import { HttpRequest, Validation, AddSurvey, AddSurveyModel } from './add-survey-controller-protocols';
 import { AddSurveyController } from './add-survey-controller';
-import {
-  badRequest,
-  noContent,
-  serverError,
-} from '@/presentation/helpers/http/http-helper';
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http-helper';
 import MockDate from 'mockdate';
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -18,11 +9,11 @@ const makeFakeRequest = (): HttpRequest => ({
     answers: [
       {
         image: 'any_image',
-        answer: 'any_answer',
-      },
+        answer: 'any_answer'
+      }
     ],
-    date: new Date(),
-  },
+    date: new Date()
+  }
 });
 
 const makeValidation = (): Validation => {
@@ -56,7 +47,7 @@ const makeSut = (): SutTypes => {
   return {
     sut,
     validationStub,
-    addSurveyStub,
+    addSurveyStub
   };
 };
 
