@@ -1,10 +1,4 @@
-import {
-  Collection,
-  InsertOneResult,
-  MongoClient,
-  Document,
-  WithId,
-} from 'mongodb';
+import { Collection, InsertOneResult, MongoClient, Document, WithId } from 'mongodb';
 
 export const MongoHelper = {
   client: null as MongoClient,
@@ -30,14 +24,14 @@ export const MongoHelper = {
   map(result: InsertOneResult<Document>, collection: any): any {
     const { _id, ...collectionWithoutId } = collection;
     return Object.assign({}, collectionWithoutId, {
-      id: result.insertedId.toString(),
+      id: result.insertedId.toString()
     });
   },
 
   format(result: WithId<Document>): any {
     const { _id, ...document } = result;
     return Object.assign({}, document, {
-      id: _id.toString(),
+      id: _id.toString()
     });
   },
 
@@ -45,8 +39,8 @@ export const MongoHelper = {
     return results.map(result => {
       const { _id, ...document } = result;
       return Object.assign({}, document, {
-        id: _id.toString(),
+        id: _id.toString()
       });
     });
-  },
+  }
 };
