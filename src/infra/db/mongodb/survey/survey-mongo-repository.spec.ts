@@ -30,14 +30,14 @@ describe('Survey Mongo Repository', () => {
         answers: [
           {
             image: 'any_image',
-            answer: 'any_answer',
+            answer: 'any_answer'
           },
-          { answer: 'any_answer_2' },
+          { answer: 'any_answer_2' }
         ],
-        date: new Date(),
+        date: new Date()
       });
       const survey = await surveyCollection.findOne({
-        question: 'any_question',
+        question: 'any_question'
       });
       expect(survey).toBeTruthy();
     });
@@ -51,21 +51,21 @@ describe('Survey Mongo Repository', () => {
           answers: [
             {
               image: 'any_image',
-              answer: 'any_answer',
-            },
+              answer: 'any_answer'
+            }
           ],
-          date: new Date(),
+          date: new Date()
         },
         {
           question: 'other_question',
           answers: [
             {
               image: 'any_image',
-              answer: 'any_answer',
-            },
+              answer: 'any_answer'
+            }
           ],
-          date: new Date(),
-        },
+          date: new Date()
+        }
       ]);
       const sut = makeSut();
       const surveys = await sut.loadAll();
@@ -78,6 +78,25 @@ describe('Survey Mongo Repository', () => {
       const sut = makeSut();
       const surveys = await sut.loadAll();
       expect(surveys.length).toBe(0);
+    });
+  });
+
+  describe('loadById()', () => {
+    test('should load survey by id on success', async () => {
+      const result = await surveyCollection.insertOne({
+        question: 'any_question',
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer'
+          }
+        ],
+        date: new Date()
+      });
+      const id = result.insertedId.toString();
+      const sut = makeSut();
+      const survey = await sut.loadById(id);
+      expect(survey).toBeTruthy();
     });
   });
 });
