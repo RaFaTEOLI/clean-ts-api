@@ -1,8 +1,5 @@
-import { AccountModel } from '@/data/usecases/add-account/db-add-account-protocols';
+import { AccountModel } from '@/data/usecases/account/add-account/db-add-account-protocols';
 
 export interface LoadAccountByTokenRepository {
-  loadByToken: (
-    accessToken: string,
-    role?: string
-  ) => Promise<AccountModel | null>;
+  loadByToken: (accessToken: string, role?: string) => Promise<AccountModel | null>;
 }
