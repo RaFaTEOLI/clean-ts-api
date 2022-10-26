@@ -36,11 +36,6 @@ export const MongoHelper = {
   },
 
   formatArray(results: Array<WithId<Document>>): any {
-    return results.map(result => {
-      const { _id, ...document } = result;
-      return Object.assign({}, document, {
-        id: _id.toString()
-      });
-    });
+    return results.map(result => MongoHelper.format(result));
   }
 };
