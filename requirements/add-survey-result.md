@@ -18,4 +18,4 @@
 4. ⛔ It will return error **403** if the answer is an invalid answer
 5. ⛔ It will return error **500** if there is an error while trying to create survey result
 6. ⛔ It will return error **500** if there is an error while trying to update survey result
-7. ⛔ It will return error **500** if there is an error while trying to load survey
+7. ✅ It will return error **500** if there is an error while trying to load survey
