@@ -9,13 +9,7 @@ import {
   Encrypter,
   UpdateAccessTokenRepository
 } from './db-authentication-protocols';
-
-const makeFakeAccount = (): AccountModel => ({
-  id: 'any_id',
-  name: 'any_name',
-  email: 'any_email@mail.com',
-  password: 'hashed_password'
-});
+import { mockAccountModel } from '@/domain/test';
 
 const makeFakeAuthentication = (): AuthenticationParams => ({
   email: 'any_email@mail.com',
@@ -25,7 +19,7 @@ const makeFakeAuthentication = (): AuthenticationParams => ({
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail(email: string): Promise<AccountModel> {
-      return await Promise.resolve(makeFakeAccount());
+      return await Promise.resolve(mockAccountModel());
     }
   }
   return new LoadAccountByEmailRepositoryStub();

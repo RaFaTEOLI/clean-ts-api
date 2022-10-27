@@ -10,13 +10,7 @@ import {
 } from './signup-controller-protocols';
 import { SignUpController } from './signup-controller';
 import { success, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helper';
-
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@email.com',
-  password: 'valid_password'
-});
+import { mockAccountModel } from '@/domain/test';
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
@@ -30,7 +24,7 @@ const makeAuthentication = (): Authentication => {
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add(account: AddAccountParams): Promise<AccountModel> {
-      const fakeAccount = makeFakeAccount();
+      const fakeAccount = mockAccountModel();
       return await Promise.resolve(fakeAccount);
     }
   }
@@ -110,7 +104,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut();
     const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse).toEqual(success({ accessToken: 'any_token', user: makeFakeAccount() }));
+    expect(httpResponse).toEqual(success({ accessToken: 'any_token', user: mockAccountModel() }));
   });
 
   test('should call Validation with correct value', async () => {
