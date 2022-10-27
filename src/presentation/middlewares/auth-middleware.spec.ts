@@ -1,31 +1,30 @@
 import { forbidden, serverError, success } from '../helpers/http/http-helper';
 import { AccessDeniedError } from '../errors';
 import { AuthMiddleware } from './auth-middleware';
-import {
-  LoadAccountByToken,
-  HttpRequest,
-  AccountModel,
-} from './auth-middleware-protocols';
+import { LoadAccountByToken, HttpRequest, AccountModel } from './auth-middleware-protocols';
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com',
-  password: 'hashed_password',
+  password: 'hashed_password'
+});
+
+const makeFakeAccountReturn = (): Omit<AccountModel, 'password'> => ({
+  id: 'valid_id',
+  name: 'valid_name',
+  email: 'valid_email@mail.com'
 });
 
 const makeFakeRequest = (): HttpRequest => ({
   headers: {
-    'x-access-token': 'any_token',
-  },
+    'x-access-token': 'any_token'
+  }
 });
 
 const makeLoadAddAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
-    async load(
-      accessToken: string,
-      role?: string | undefined
-    ): Promise<AccountModel | null> {
+    async load(accessToken: string, role?: string | undefined): Promise<AccountModel | null> {
       return await Promise.resolve(makeFakeAccount());
     }
   }
@@ -42,7 +41,7 @@ const makeSut = (role?: string): SutTypes => {
   const sut = new AuthMiddleware(loadAccountByTokenStub, role);
   return {
     sut,
-    loadAccountByTokenStub,
+    loadAccountByTokenStub
   };
 };
 
@@ -71,14 +70,12 @@ describe('AuthMiddleware', () => {
   test('should return 200 if LoadAccountByToken returns an account', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success(makeFakeAccount()));
+    expect(httpResponse).toEqual(success({ account: makeFakeAccountReturn() }));
   });
 
   test('should return 500 if LoadAccountByToken throws an exception', async () => {
     const { sut, loadAccountByTokenStub } = makeSut();
-    jest
-      .spyOn(loadAccountByTokenStub, 'load')
-      .mockRejectedValueOnce(new Error());
+    jest.spyOn(loadAccountByTokenStub, 'load').mockRejectedValueOnce(new Error());
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
