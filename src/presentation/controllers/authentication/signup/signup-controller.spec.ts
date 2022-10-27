@@ -6,7 +6,7 @@ import {
   HttpRequest,
   Validation,
   Authentication,
-  AuthenticationModel
+  AuthenticationParams
 } from './signup-controller-protocols';
 import { SignUpController } from './signup-controller';
 import { success, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helper';
@@ -20,7 +20,7 @@ const makeFakeAccount = (): AccountModel => ({
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(authentication: AuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationParams): Promise<string> {
       return await Promise.resolve('any_token');
     }
   }
