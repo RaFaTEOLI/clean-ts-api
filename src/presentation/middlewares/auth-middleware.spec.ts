@@ -1,7 +1,7 @@
 import { forbidden, serverError, success } from '../helpers/http/http-helper';
 import { AccessDeniedError } from '../errors';
 import { AuthMiddleware } from './auth-middleware';
-import { LoadAccountByToken, HttpRequest, AccountModel } from './auth-middleware-protocols';
+import { LoadAccountByToken, HttpRequest, AccountModel, AccountCleanModel } from './auth-middleware-protocols';
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
@@ -10,7 +10,7 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'hashed_password'
 });
 
-const makeFakeAccountReturn = (): Omit<AccountModel, 'password'> => ({
+const makeFakeAccountReturn = (): AccountCleanModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com'

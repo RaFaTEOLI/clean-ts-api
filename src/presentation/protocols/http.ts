@@ -1,4 +1,4 @@
-import { AccountModel } from '@/domain/models/account';
+import { AccountCleanModel } from '@/domain/models/account';
 
 export type HttpResponse = {
   statusCode: number;
@@ -9,5 +9,5 @@ export type HttpRequest = {
   body?: any;
   headers?: any;
   params?: any;
-  account?: Omit<AccountModel, 'password'>;
+  account?: AccountCleanModel;
 };
