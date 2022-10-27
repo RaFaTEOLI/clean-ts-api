@@ -10,18 +10,8 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/main/**',
-    // Protocols
-    '!<rootDir>/src/presentation/controllers/authentication/signup/signup-controller-protocols.ts',
-    '!<rootDir>/src/presentation/controllers/authentication/login/login-controller-protocols.ts',
-    '!<rootDir>/src/presentation/controllers/survey/add-survey/add-survey-protocols.ts',
-    '!<rootDir>/src/presentation/controllers/survey/load-surveys/load-surveys-protocols.ts',
-    '!<rootDir>/src/presentation/middlewares/auth-middleware-protocols.ts',
-    '!<rootDir>/src/presentation/protocols/index.ts',
-    '!<rootDir>/src/data/usecases/add-account/db-add-account-protocols.ts',
-    '!<rootDir>/src/data/usecases/authentication/db-authentication-protocols.ts',
-    '!<rootDir>/src/data/usecases/add-survey/db-add-survey-protocols.ts',
-    '!<rootDir>/src/data/usecases/load-account-by-token/db-load-account-by-token-protocols.ts',
-    '!<rootDir>/src/data/usecases/load-surveys/db-load-surveys-protocols.ts',
+    '!<rootDir>/src/**/*-protocols.ts',
+    '!<rootDir>/src/presentation/protocols/index.ts'
   ],
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -33,9 +23,9 @@ module.exports = {
   preset: '@shelf/jest-mongodb',
   // A map from regular expressions to paths to transformers
   transform: {
-    '.+\\.ts$': 'ts-jest',
+    '.+\\.ts$': 'ts-jest'
   },
   moduleNameMapper: {
-    '@/(.*)': '<rootDir>/src/$1',
-  },
+    '@/(.*)': '<rootDir>/src/$1'
+  }
 };
