@@ -11,6 +11,13 @@
       "remoteRoot": "/home/rafael/courses/clean-ts-api/Docker/clean-ts-api",
       "port": 9222,
       "restart": true
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Node",
+      "port": 9222,
+      "restart": true
     }
   ]
 }
