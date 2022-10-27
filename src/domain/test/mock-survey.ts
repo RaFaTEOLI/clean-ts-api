@@ -40,7 +40,7 @@ export const mockSurveysData = (): SurveyModel[] => {
   ];
 };
 
-export const mockSurveyData = (): AddSurveyParams => ({
+export const mockAddSurveyParams = (): AddSurveyParams => ({
   question: 'any_question',
   answers: [
     {

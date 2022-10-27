@@ -2,7 +2,7 @@ import { AddSurveyRepository } from './db-add-survey-protocols';
 import { DbAddSurvey } from './db-add-survey';
 import MockDate from 'mockdate';
 import { mockAddSurveyRepository } from '@/data/test';
-import { mockSurveyData } from '@/domain/test';
+import { mockAddSurveyParams } from '@/domain/test';
 
 interface SutTypes {
   sut: DbAddSurvey;
@@ -30,7 +30,7 @@ describe('DdAddSurvey Usecase', () => {
   test('should call AddSurveyRepository with correct values', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut();
     const addSpy = jest.spyOn(addSurveyRepositoryStub, 'add');
-    const surveyData = mockSurveyData();
+    const surveyData = mockAddSurveyParams();
     await sut.add(surveyData);
     expect(addSpy).toHaveBeenCalledWith(surveyData);
   });
@@ -38,7 +38,7 @@ describe('DdAddSurvey Usecase', () => {
   test('should throw exception if AddSurveyRepository throws exception', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut();
     jest.spyOn(addSurveyRepositoryStub, 'add').mockRejectedValueOnce(new Error());
-    const promise = sut.add(mockSurveyData());
+    const promise = sut.add(mockAddSurveyParams());
     await expect(promise).rejects.toThrow();
   });
 });
