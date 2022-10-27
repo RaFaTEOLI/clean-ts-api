@@ -10,6 +10,7 @@ import {
   SurveyResultModel
 } from './save-survey-result-controller-protocols';
 import MockDate from 'mockdate';
+import { mockSurveyModel, mockSurveyResultModel } from '@/domain/test';
 
 const makeFakeRequest = (): HttpRequest => ({
   params: {
@@ -25,30 +26,10 @@ const makeFakeRequest = (): HttpRequest => ({
   }
 });
 
-const makeFakeSurvey = (): SurveyModel => ({
-  id: 'any_id',
-  question: 'any_question',
-  answers: [
-    {
-      image: 'any_image',
-      answer: 'any_answer'
-    }
-  ],
-  date: new Date()
-});
-
-const makeFakeSurveyResult = (): SurveyResultModel => ({
-  id: 'valid_id',
-  accountId: 'valid_account_id',
-  surveyId: 'valid_survey_id',
-  answer: 'valid_answer',
-  date: new Date()
-});
-
 const makeLoadSurveyById = (): LoadSurveyById => {
   class LoadSurveyByIdStub implements LoadSurveyById {
     async loadById(id: string): Promise<SurveyModel> {
-      return await Promise.resolve(makeFakeSurvey());
+      return await Promise.resolve(mockSurveyModel());
     }
   }
   return new LoadSurveyByIdStub();
@@ -57,7 +38,7 @@ const makeLoadSurveyById = (): LoadSurveyById => {
 const makeSaveSurveyResult = (): SaveSurveyResult => {
   class SaveSurveyResultStub implements SaveSurveyResult {
     async save(surveyResultData: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return await Promise.resolve(makeFakeSurveyResult());
+      return await Promise.resolve(mockSurveyResultModel());
     }
   }
   return new SaveSurveyResultStub();
@@ -146,6 +127,6 @@ describe('SaveSurveyResult Controller', () => {
   test('should return 200 on success', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success(makeFakeSurveyResult()));
+    expect(httpResponse).toEqual(success(mockSurveyResultModel()));
   });
 });
