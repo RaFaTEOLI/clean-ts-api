@@ -1,23 +1,9 @@
 /* eslint-disable @typescript-eslint/brace-style */
 /* eslint-disable @typescript-eslint/indent */
 import { DbAddAccount } from './db-add-account';
-import {
-  Hasher,
-  AccountModel,
-  AddAccountRepository,
-  LoadAccountByEmailRepository
-} from './db-add-account-protocols';
+import { Hasher, AddAccountRepository, LoadAccountByEmailRepository } from './db-add-account-protocols';
 import { mockAccountModel, mockAddAccountParams } from '@/domain/test';
-import { mockAddAccountRepository, mockHasher } from '@/data/test';
-
-const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
-  class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
-    async loadByEmail(email: string): Promise<AccountModel | null> {
-      return await Promise.resolve(null);
-    }
-  }
-  return new LoadAccountByEmailRepositoryStub();
-};
+import { mockAddAccountRepository, mockHasher, mockLoadAccountByEmailRepository } from '@/data/test';
 
 type SutTypes = {
   hasherStub: Hasher;
@@ -26,10 +12,13 @@ type SutTypes = {
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository;
 };
 
-const makeSut = (): SutTypes => {
+const makeSut = (spy = true): SutTypes => {
   const hasherStub = mockHasher();
   const addAccountRepositoryStub = mockAddAccountRepository();
   const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository();
+  if (spy) {
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockResolvedValueOnce(null);
+  }
   const sut = new DbAddAccount(hasherStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub);
   return {
     sut,
@@ -80,8 +69,7 @@ describe('DbAddAccount Usecase', () => {
   });
 
   test('should return null if LoadAccountByEmailRepository returns an account', async () => {
-    const { sut, loadAccountByEmailRepositoryStub } = makeSut();
-    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockResolvedValueOnce(mockAccountModel());
+    const { sut } = makeSut(false);
     const account = await sut.add(mockAddAccountParams());
     expect(account).toBeNull();
   });
