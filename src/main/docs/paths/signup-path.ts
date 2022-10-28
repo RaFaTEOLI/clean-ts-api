@@ -1,13 +1,14 @@
-export const loginPath = {
+export const signUpPath = {
   post: {
     tags: ['Authentication'],
-    summary: 'API to authenticate user',
+    summary: 'API to sign up',
+    description: 'This route is for anyone',
     requestBody: {
       required: true,
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/loginParams'
+            $ref: '#/schemas/signUpParams'
           }
         }
       }
@@ -26,8 +27,8 @@ export const loginPath = {
       400: {
         $ref: '#/components/badRequest'
       },
-      401: {
-        $ref: '#/components/unauthorized'
+      403: {
+        $ref: '#/components/forbidden'
       },
       500: {
         $ref: '#/components/serverError'
