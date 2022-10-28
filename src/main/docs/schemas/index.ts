@@ -9,3 +9,4 @@ export * from './signup-params-schema';
 export * from './survey-result-schema';
 export * from './survey-result-answer-schema';
 export * from './save-survey-params-schema';
+export * from './api-key-auth-schema';
