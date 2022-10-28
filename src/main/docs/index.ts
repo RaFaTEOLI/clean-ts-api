@@ -1,5 +1,6 @@
+import { badRequest, serverError, unauthorized } from './components';
 import { loginPath } from './paths';
-import { accountSchema, loginParamsSchema } from './schemas';
+import { accountSchema, errorSchema, loginParamsSchema } from './schemas';
 
 export default {
   openapi: '3.0.0',
@@ -7,6 +8,10 @@ export default {
     title: 'Clean TS API',
     description: '🧼 NodeJs API with Typescript, TDD, Clean Architecture, Design Patterns and SOLID Principles',
     version: '1.0.0'
+  },
+  license: {
+    name: 'MIT',
+    url: 'https://opensource.org/licenses/MIT'
   },
   servers: [
     {
@@ -23,6 +28,12 @@ export default {
   },
   schemas: {
     account: accountSchema,
-    loginParams: loginParamsSchema
+    loginParams: loginParamsSchema,
+    error: errorSchema
+  },
+  components: {
+    badRequest,
+    serverError,
+    unauthorized
   }
 };
