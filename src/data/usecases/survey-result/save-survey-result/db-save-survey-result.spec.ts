@@ -2,7 +2,7 @@ import { SaveSurveyResultRepository } from './db-save-survey-result-protocols';
 import { DbSaveSurveyResult } from './db-save-survey-result';
 import MockDate from 'mockdate';
 import { mockSaveSurveyResultRepository } from '@/data/test/mock-db-survey-result';
-import { mockSurveyResultParams, mockSurveyResultModel } from '@/domain/test';
+import { mockSaveSurveyResultParams, mockSurveyResultModel } from '@/domain/test';
 
 interface SutTypes {
   sut: DbSaveSurveyResult;
@@ -30,21 +30,21 @@ describe('DdSaveSurveyResult Usecase', () => {
   test('should call SaveSurveyResultRepository with correct values', async () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut();
     const saveSpy = jest.spyOn(saveSurveyResultRepositoryStub, 'save');
-    const surveyResultData = mockSurveyResultParams();
+    const surveyResultData = mockSaveSurveyResultParams();
     await sut.save(surveyResultData);
     expect(saveSpy).toHaveBeenCalledWith(surveyResultData);
   });
 
   test('should return a SurveyResult on success', async () => {
     const { sut } = makeSut();
-    const surveyResultData = await sut.save(mockSurveyResultParams());
+    const surveyResultData = await sut.save(mockSaveSurveyResultParams());
     expect(surveyResultData).toEqual(mockSurveyResultModel());
   });
 
   test('should throw exception if SaveSurveyResultRepository throws exception', async () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut();
     jest.spyOn(saveSurveyResultRepositoryStub, 'save').mockRejectedValueOnce(new Error());
-    const promise = sut.save(mockSurveyResultParams());
+    const promise = sut.save(mockSaveSurveyResultParams());
     await expect(promise).rejects.toThrow();
   });
 });

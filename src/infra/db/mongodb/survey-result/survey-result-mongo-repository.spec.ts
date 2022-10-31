@@ -1,6 +1,6 @@
 import { AccountModel } from '@/domain/models/account';
 import { SurveyModel } from '@/domain/models/survey';
-import { Collection } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 import { MongoHelper } from '../helpers/mongo-helper';
 import { SurveyResultMongoRepository } from './survey-result-mongo-repository';
 
@@ -71,22 +71,24 @@ describe('SurveyResultMongo Repository', () => {
         answer: survey.answers[0].answer,
         date: new Date()
       });
+      console.log({ surveyResult, survey });
       expect(surveyResult).toBeTruthy();
-      expect(surveyResult.id).toBeTruthy();
-      expect(surveyResult.answer).toBe(survey.answers[0].answer);
+      expect(surveyResult.surveyId).toEqual(new ObjectId(survey.id));
+      expect(surveyResult.answers[0].answer).toBe(survey.answers[0].answer);
+      expect(surveyResult.answers[0].count).toBe(1);
+      expect(surveyResult.answers[0].percent).toBe(100);
     });
 
     test('should update a survey result if it already exists', async () => {
       const survey = await makeSurvey();
       const account = await makeAccount();
 
-      const result = await surveyResultCollection.insertOne({
-        surveyId: survey.id,
-        accountId: account.id,
+      await surveyResultCollection.insertOne({
+        surveyId: new ObjectId(survey.id),
+        accountId: new ObjectId(account.id),
         answer: survey.answers[0].answer,
         date: new Date()
       });
-      const id = result.insertedId.toString();
 
       const sut = makeSut();
       const surveyResult = await sut.save({
@@ -96,8 +98,10 @@ describe('SurveyResultMongo Repository', () => {
         date: new Date()
       });
       expect(surveyResult).toBeTruthy();
-      expect(surveyResult.id).toBe(id);
-      expect(surveyResult.answer).toBe(survey.answers[1].answer);
+      expect(surveyResult.surveyId).toEqual(new ObjectId(survey.id));
+      expect(surveyResult.answers[0].answer).toBe(survey.answers[1].answer);
+      expect(surveyResult.answers[0].count).toBe(1);
+      expect(surveyResult.answers[0].percent).toBe(100);
     });
   });
 });
