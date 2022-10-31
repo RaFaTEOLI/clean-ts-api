@@ -4,8 +4,7 @@
 
 1. ✅ It receives a **GET** request at **/api/surveys/{survey_id}/results**
 2. ✅ It validates if the request was made by an user
-3. ⛔ It returns **204** if there are no results
-4. ⛔ It returns **200** with the survey results
+3. ✅ It returns **200** with the survey results
 
 > ## Exceptions:
 
